@@ -1,19 +1,44 @@
-name: PR for test branch
+name: Cherry pick PR commits for label
 on:
-  push:
+  # you can use pull_request, but...
+  # pull_request_target runs with the approver permission
+  # which is critical to enable also for forks
+  pull_request_target:
     branches:
       - dev
+    types: [closed]
 jobs:
-  release_pull_request:
+  cherry_pick_pr_for_label:
+    name: Cherry pick PR commits for label
     runs-on: ubuntu-latest
-    name: release_pull_request
     steps:
-    - name: checkout
-      uses: actions/checkout@v1
-    - name: Create PR to branch
-      uses: gorillio/github-action-cherry-pick@master
-      with:
-        pr_branch: 'test'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DRY_RUN: false
+      - uses: actions/checkout@v2
+      - name: Cherry Pick PR for label
+        # you setup here the separate repository
+        # where action is located:
+        - repository: IzC87/TestingAutoPRActions
+        - relative path: /TestingAutoPRActions
+        - branch: @test
+        uses: EventStore/Automations/cherry-pick-pr-for-label@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+# name: PR for test branch
+# on:
+#   push:
+#     branches:
+#       - dev
+# jobs:
+#   release_pull_request:
+#     runs-on: ubuntu-latest
+#     name: release_pull_request
+#     steps:
+#     - name: checkout
+#       uses: actions/checkout@v1
+#     - name: Create PR to branch
+#       uses: gorillio/github-action-cherry-pick@master
+#       with:
+#         pr_branch: 'test'
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         DRY_RUN: false
