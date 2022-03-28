@@ -1,27 +1,44 @@
-name: Cherry pick PR commits for label
+name: 'forward-merge'
 on:
-  # you can use pull_request, but...
-  # pull_request_target runs with the approver permission
-  # which is critical to enable also for forks
-  pull_request_target:
-    branches:
+  push:
+    branches: # List all "from" branches - all branches that should be forward merged
       - dev
-    types: [closed]
+
 jobs:
-  cherry_pick_pr_for_label:
-    name: Cherry pick PR commits for label
+  forward-merge:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Cherry Pick PR for label
-        # you setup here the separate repository
-        # where action is located:
-        - repository: IzC87/TestingAutoPRActions
-        - relative path: /TestingAutoPRActions
-        - branch: @test
-        uses: EventStore/Automations/cherry-pick-pr-for-label@master
+      - uses: NicholasBoll/action-forward-merge-pr@v1.0.0
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{secrets.GITHUB_TOKEN}}
+          branches: dev+test
+          prefix: 'chore: '
+
+
+# name: Cherry pick PR commits for label
+# on:
+#   # you can use pull_request, but...
+#   # pull_request_target runs with the approver permission
+#   # which is critical to enable also for forks
+#   pull_request_target:
+#     branches:
+#       - dev
+#     types: [closed]
+# jobs:
+#   cherry_pick_pr_for_label:
+#     name: Cherry pick PR commits for label
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v1
+#       - name: Cherry Pick PR for label
+#         # you setup here the separate repository
+#         # where action is located:
+#         - repository: IzC87/TestingAutoPRActions
+#         - relative path: /TestingAutoPRActions
+#         - branch: @test
+#         uses: EventStore/Automations/cherry-pick-pr-for-label@master
+#         with:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 # name: PR for test branch
 # on:
