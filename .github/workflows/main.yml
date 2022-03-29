@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           git config user.name github-actions
-          git checkout -b "${GITHUB_SHA}" origin/"$BASE_PR_BRANCH"
+          git checkout -b "${GITHUB_SHA}" "$BASE_PR_BRANCH"
           git cherry-pick -m 1 "${GITHUB_SHA}"
           git push -u origin "$PR_BRANCH"
           hub pull-request -b "$BASE_PR_BRANCH" -h "${PR_BRANCH}" -a "${GITHUB_ACTOR}" -m "\"AUTO: ${PR_TITLE}\""
