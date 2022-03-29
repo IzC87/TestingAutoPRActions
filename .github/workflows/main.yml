@@ -1,6 +1,6 @@
 env:
-  BASE_PR_BRANCH: "test"
-  PR_BRANCH: "auto-{{$INPUT_PR_BRANCH}}-{{$GITHUB_SHA}}"
+  TARGET_PR_BRANCH: "test"
+  PR_BRANCH_PREFIX: "dev-test"
 
 name: PR for test branch
 on:
@@ -17,10 +17,10 @@ jobs:
           git config user.name github-actions
           git remote update
           git fetch --all
-          git checkout -b "${GITHUB_SHA}" origin/"$BASE_PR_BRANCH"
+          git checkout -b "{$PR_BRANCH_PREFIX}{$github.ref_name}" origin/"$TARGET_PR_BRANCH"
           git cherry-pick -m 1 "${GITHUB_SHA}"
-          git push -u origin "$PR_BRANCH"
-          hub pull-request -b "$BASE_PR_BRANCH" -h "${PR_BRANCH}" -a "${GITHUB_ACTOR}" -m "\"AUTO: ${PR_TITLE}\""
+          git push -u origin "{$PR_BRANCH_PREFIX}{$github.ref_name}"
+          hub pull-request -b "$TARGET_PR_BRANCH" -h "${PR_BRANCH}" -a "${GITHUB_ACTOR}" -m "\"AUTO: ${PR_TITLE}\""
      
 # name: PR for test branch
 # on:
