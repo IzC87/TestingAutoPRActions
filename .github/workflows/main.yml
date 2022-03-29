@@ -19,7 +19,10 @@ jobs:
           git remote update
           git fetch --all
           git checkout -b "$PR_BRANCH_PREFIX"${{ github.run_id }} origin/"$TARGET_PR_BRANCH"
+          echo git diff
+          git diff
           git cherry-pick "${GITHUB_SHA}"
+          echo git diff
           git diff
           git push -u origin "$PR_BRANCH_PREFIX"${{ github.run_id }}
           hub pull-request -b "$TARGET_PR_BRANCH" -h "${PR_BRANCH_PREFIX}" -a "${GITHUB_ACTOR}" -m "\"AUTO: TEMP\""
