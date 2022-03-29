@@ -8,12 +8,31 @@ jobs:
     runs-on: ubuntu-latest
     name: release_pull_request
     steps:
-    - name: checkout
-      uses: actions/checkout@v1
-    - name: Create PR to branch
-      uses: izc87/github-action-cherry-pick@master
-      with:
-        pr_branch: 'test'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DRY_RUN: false
+      - uses: actions/checkout@v3
+      - run: |
+          git config user.name github-actions
+          git config user.email <>
+          git checkout -b "${PR_BRANCH}" origin/"${INPUT_PR_BRANCH}"
+          git cherry-pick -m 1 "${GITHUB_SHA}"
+          git push -u origin "${PR_BRANCH}"
+          hub pull-request -b "${INPUT_PR_BRANCH}" -h "${PR_BRANCH}" -l "${INPUT_PR_LABELS}" -a "${GITHUB_ACTOR}" -m "\"AUTO: ${PR_TITLE}\""
+
+# name: PR for test branch
+# on:
+#   push:
+#     branches:
+#       - dev
+# jobs:
+#   release_pull_request:
+#     runs-on: ubuntu-latest
+#     name: release_pull_request
+#     steps:
+#     - name: checkout
+#       uses: actions/checkout@v1
+#     - name: Create PR to branch
+#       uses: izc87/github-action-cherry-pick@master
+#       with:
+#         pr_branch: 'test'
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         DRY_RUN: false
