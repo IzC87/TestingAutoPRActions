@@ -13,6 +13,7 @@ jobs:
     name: release_pull_request
     steps:
       - uses: actions/checkout@v3
+      - uses: geertvdc/setup-hub@master
         with:
           fetch-depth: 2
           token: ${{ secrets.TOKEN }}
