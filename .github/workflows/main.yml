@@ -13,8 +13,9 @@ jobs:
     name: release_pull_request
     steps:
       - uses: actions/checkout@v3
+      with:
+        fetch-depth: 2
       - run: |
-          echo 1
           git config user.name github-actions
           git remote update
           git fetch --all
