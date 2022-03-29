@@ -17,29 +17,8 @@ jobs:
           git config user.name github-actions
           git remote update
           git fetch --all
-          git checkout origin/"$TARGET_PR_BRANCH"
+          git checkout -b "$PR_BRANCH_PREFIX"${{ github.run_id }} origin/"$TARGET_PR_BRANCH"
           git pull origin/"$TARGET_PR_BRANCH"
-          git checkout -b "$PR_BRANCH_PREFIX"${{ github.run_id }}
           git cherry-pick -m 1 "${GITHUB_SHA}"
           git push -u origin "$PR_BRANCH_PREFIX"${{ github.run_id }}
           hub pull-request -b "$TARGET_PR_BRANCH" -h "${PR_BRANCH_PREFIX}" -a "${GITHUB_ACTOR}" -m "\"AUTO: TEMP\""
-     
-# name: PR for test branch
-# on:
-#   push:
-#     branches:
-#       - dev
-# jobs:
-#   release_pull_request:
-#     runs-on: ubuntu-latest
-#     name: release_pull_request
-#     steps:
-#     - name: checkout
-#       uses: actions/checkout@v1
-#     - name: Create PR to branch
-#       uses: izc87/github-action-cherry-pick@master
-#       with:
-#         pr_branch: 'test'
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         DRY_RUN: false
