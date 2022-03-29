@@ -18,7 +18,6 @@ jobs:
           git fetch --all
           git checkout -b "$PR_BRANCH_PREFIX"${{ github.run_id }} origin/"$TARGET_PR_BRANCH"
           git cherry-pick -m 1 "${GITHUB_SHA}"
-          git cherry-pick --continue
           git push -u origin "$PR_BRANCH_PREFIX"${{ github.run_id }}
           hub pull-request -b "$TARGET_PR_BRANCH" -h "${PR_BRANCH_PREFIX}" -a "${GITHUB_ACTOR}" -m "\"AUTO: TEMP\""
      
