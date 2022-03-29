@@ -18,12 +18,11 @@ jobs:
           token: ${{ secrets.TOKEN }}
       - run: |
           git config user.email ""
-          git config user.name github-actions
+          git config user.name fredrikoden87@gmail.com
+          git config user.password ${{ secrets.PW }}
           git remote update
           git fetch --all
           git checkout -b "$PR_BRANCH_PREFIX"${{ github.run_id }} origin/"$TARGET_PR_BRANCH"
           git cherry-pick "${GITHUB_SHA}"
           git push -u origin "$PR_BRANCH_PREFIX"${{ github.run_id }}
-          github.com username: fredrikoden87@gmail.com
-          github.com password: ${{ secrets.PW }}
           hub pull-request -b "$TARGET_PR_BRANCH" -h "${PR_BRANCH_PREFIX}" -a "${GITHUB_ACTOR}" -m "\"AUTO: TEMP\""
