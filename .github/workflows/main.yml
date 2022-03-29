@@ -18,7 +18,7 @@ jobs:
           token: ${{ secrets.TOKEN }}
         env:
           GITHUB_USER: ${{ secrets.ACC }}
-          GITHUB_TOKEN: ${{ secrets.PW }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
       - run: |
           git config user.email ""
           git config user.name github-actions
