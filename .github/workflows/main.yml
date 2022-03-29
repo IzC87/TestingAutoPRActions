@@ -1,5 +1,5 @@
 env:
-  PR_BRANCH="auto-$INPUT_PR_BRANCH-$GITHUB_SHA"
+  PR_BRANCH: "auto-$INPUT_PR_BRANCH-$GITHUB_SHA"
 
 name: PR for test branch
 on:
