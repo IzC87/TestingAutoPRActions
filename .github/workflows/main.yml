@@ -10,16 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          echo ${{ env }}
-          echo ${{ env }}
-          # git config user.name github-actions
-          # git checkout -b "${PR_BRANCH}" origin/"${INPUT_PR_BRANCH}"
-          # git cherry-pick -m 1 "${GITHUB_SHA}"
-          # git push -u origin "${PR_BRANCH}"
-          # hub pull-request -b "${INPUT_PR_BRANCH}" -h "${PR_BRANCH}" -l "${INPUT_PR_LABELS}" -a "${GITHUB_ACTOR}" -m "\"AUTO: ${PR_TITLE}\""
+          git config user.name github-actions
+          git checkout -b "$PR_BRANCH" origin/"${INPUT_PR_BRANCH}"
+          git cherry-pick -m 1 "${GITHUB_SHA}"
+          git push -u origin "${PR_BRANCH}"
+          hub pull-request -b "${INPUT_PR_BRANCH}" -h "${PR_BRANCH}" -l "${INPUT_PR_LABELS}" -a "${GITHUB_ACTOR}" -m "\"AUTO: ${PR_TITLE}\""
       env:
         PR_BRANCH="auto-$INPUT_PR_BRANCH-$GITHUB_SHA"
-        
+
 # name: PR for test branch
 # on:
 #   push:
