@@ -1,6 +1,6 @@
 env:
   TARGET_PR_BRANCH: "test"
-  PR_BRANCH_PREFIX: "dev-test"
+  PR_BRANCH_PREFIX: "dev2test"
 
 name: PR for test branch
 on:
