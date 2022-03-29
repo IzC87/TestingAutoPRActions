@@ -12,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     name: release_pull_request
     steps:
-      - name: Install hub
-          uses: geertvdc/setup-hub@master
+      - uses: geertvdc/setup-hub@master
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
