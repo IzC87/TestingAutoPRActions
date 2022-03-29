@@ -16,10 +16,12 @@ jobs:
         with:
           fetch-depth: 2
           token: ${{ secrets.TOKEN }}
+        env:
+          GITHUB_USER: ${{ secrets.GITHUB_USER }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           git config user.email ""
-          git config user.name ${{ secrets.ACC }}
-          git config user.password ${{ secrets.PW }}
+          git config user.name github-actions
           git remote update
           git fetch --all
           git checkout -b "$PR_BRANCH_PREFIX"${{ github.run_id }} origin/"$TARGET_PR_BRANCH"
