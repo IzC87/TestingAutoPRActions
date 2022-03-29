@@ -12,15 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     name: release_pull_request
     steps:
-    - uses: actions/checkout@v3
-    - name: Install hub
-        uses: geertvdc/setup-hub@master
-    - name: run hub commands
-        env:
-          GITHUB_USER: ${{ secrets.ACC }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: |
-            hub release
+      - uses: actions/checkout@v3
+      - name: Install hub
+          uses: geertvdc/setup-hub@master
+      - name: run hub commands
+          env:
+            GITHUB_USER: ${{ secrets.ACC }}
+            GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          run: |
+              hub release
 
 
 
