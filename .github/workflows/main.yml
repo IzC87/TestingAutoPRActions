@@ -19,8 +19,8 @@ jobs:
         env:
           GITHUB_USER: ${{ secrets.ACC }}
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        run: |
-            hub release
+        run: hub pr list
+  
 
 
 
