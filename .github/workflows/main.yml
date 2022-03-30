@@ -28,7 +28,7 @@ jobs:
           echo 1
           hub release
           echo 2
-          hub pull-request -b "$TARGET_PR_BRANCH" -h "${PR_BRANCH_PREFIX}" -a "${GITHUB_ACTOR}" -m "\"AUTO: TEMP\""
+          hub pull-request -b "$TARGET_PR_BRANCH" -h "$PR_BRANCH_PREFIX"${{ github.run_id }} -a "${GITHUB_ACTOR}" -m "\"AUTO: TEMP\""
           echo 3
   
 
