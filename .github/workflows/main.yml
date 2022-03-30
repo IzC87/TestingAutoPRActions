@@ -13,7 +13,7 @@ jobs:
     name: release_pull_request
     steps:
       - uses: actions/checkout@v3
-      - name: run hub commands
+      - name: Elevate a Cherry-Picked pull request
         env:
           GITHUB_USER: ${{ secrets.ACC }}
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
@@ -23,13 +23,8 @@ jobs:
           git fetch --all
           git checkout -b "$PR_BRANCH_PREFIX"${{ github.run_id }} origin/"$TARGET_PR_BRANCH"
           git cherry-pick "${GITHUB_SHA}"
-          echo 0
           git push -u origin "$PR_BRANCH_PREFIX"${{ github.run_id }}
-          echo 1
-          hub release
-          echo 2
           hub pull-request -b "$TARGET_PR_BRANCH" -h "$PR_BRANCH_PREFIX"${{ github.run_id }} -a "${GITHUB_ACTOR}" -m "\"AUTO: TEMP\""
-          echo 3
   
 
 
