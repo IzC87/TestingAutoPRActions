@@ -20,8 +20,8 @@ jobs:
           GITHUB_USER: ${{ secrets.ACC }}
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |
-          echo "${{ github }}"
-          echo "${{ env }}"
+          echo "$github"
+          echo "$env"
           git config user.name github-actions
           git remote update
           git fetch --all
