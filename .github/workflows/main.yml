@@ -20,6 +20,8 @@ jobs:
           GITHUB_USER: ${{ secrets.ACC }}
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: |
+          echo "$GITHUB_REF"
+          echo "$GITHUB_REF_NAME"
           git config user.name github-actions
           git remote update
           git fetch --all
