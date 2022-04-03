@@ -19,16 +19,17 @@ jobs:
         env:
           GITHUB_USER: ${{ secrets.ACC }}
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          COMMIT_MESSAGE: git log --format=%B -n 1 $GITHUB_SHA
         run: |
           echo "$github"
           echo "$env"
           git config user.name github-actions
           git remote update
           git fetch --all
-          git checkout -b "$PR_BRANCH_PREFIX"${{ github.run_id }} origin/"$TARGET_PR_BRANCH"
+          git checkout -b "$PR_BRANCH_PREFIX"$COMMIT_MESSAGE origin/"$TARGET_PR_BRANCH"
           git cherry-pick "${GITHUB_SHA}"
           git push -u origin "$PR_BRANCH_PREFIX"${{ github.run_id }}
-          hub pull-request -b "$TARGET_PR_BRANCH" -h "$PR_BRANCH_PREFIX"${{ github.run_id }} -a "${GITHUB_ACTOR}" -m "\"AUTO: TEMP\""
+          hub pull-request -b "$TARGET_PR_BRANCH" -h "$PR_BRANCH_PREFIX"$COMMIT_MESSAGE -a "${GITHUB_ACTOR}" -m "\"AUTO: TEMP\""
   
 
 
