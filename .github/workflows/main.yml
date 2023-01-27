@@ -7,7 +7,7 @@ jobs:
     - name: run number with offset
       env:
         NUM: ${{ github.run_number }}
+        NUMTWO: ${{ github.run_number }} + 1
       run: |
-        echo ::set-env name=GITHUB_RUN_NUMBER_WITH_OFFSET::$(($NUM+200))
-        echo ${{ github.run_number }}
-        echo $GITHUB_RUN_NUMBER_WITH_OFFSET
+        echo $NUM
+        echo $NUMTWO
