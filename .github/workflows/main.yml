@@ -7,7 +7,7 @@ jobs:
     - name: run number with offset
       env:
         NUM: ${{ github.run_number }}
-        NUMTWO: (${{ github.run_number }} + 1)
+        NUMTWO: $github.run_number + 1
       run: |
         echo $NUM
         echo $NUMTWO
