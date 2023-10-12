@@ -12,3 +12,4 @@ jobs:
       run: |
         echo $NUM
         echo $NUMTWO
+        echo running on branch ${GITHUB_REF##*/}
